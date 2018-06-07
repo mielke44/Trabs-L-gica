@@ -37,13 +37,13 @@ class Notas(NamedTuple):
     N1 : float
     N2 : float
     N3 : float
-#end class
+#end class Notas
 class Estud(NamedTuple):
     Cod : int
     Nome : str
     Aval : Notas
     Med : float
-#end class
+#end class Estud
 def in_data():
     Cod_in = int(input("Entre com o código do aluno: "))
     Nome_in = str(input("Entre com o nome do aluno: "))
@@ -63,16 +63,17 @@ Estud_List= []
 exit = 's'
 while exit != 'n' and exit != 'N':
     Estud_List.append(in_data())
-    exit = str(input("Continuar (s ou n)?"))
-def print_data():
+    exit = str(input("Continuar (s ou n)?")) #Injetando os valores do in_data na lista nova
+def print_data(Codigo,Nome,Media):
   for i in range(len(Estud_List)):
     rec=Estud_List[i]
-    print("Código: ",rec.Cod)
-    print("Nome: ",rec.Nome)
-    print("Média: ",rec.Med)
-    if rec.Med >= 7:
+    print("Código: ",Codigo)
+    print("Nome: ",Nome)
+    print("Média: ",Media)
+    if Media >= 7:
       print("Status: Aprovado")
     else:
       print("Status: Reprovado")
       print("\n")
-print_data()
+#end print_data
+print_data(rec.Cod,rec.Nome,rec.Med)
