@@ -1,19 +1,19 @@
-#ler infos (nome, codigo, 3 notas), calcular a media das 3 notas, imprimir lista de estudantes com as medias e se
-#foi aprovado (media => 7) ou não.
-#def para ler registros, calcular media e imprimir os tchans.
-#ESTRUTURA REGISTRO DE ESTUDANTE
-#tipo Notas = Registro
-#       Real Nota_1;
-#       Real Nota_2;
-#       Real Nota_3;
-#   Fim-Registro;
-#tipo Estudante = Registro
-#       int  Codigo;
-#       str  Nome;
-#       int  Notas;
-#       flt  Media;
-#   Fim-Registro ;
-# Lista Estudante Turma[ ] ;
+# ler infos (nome, codigo, 3 notas), calcular a media das 3 notas, imprimir lista de estudantes com as medias e se
+# foi aprovado (media => 7) ou não.
+# def para ler registros, calcular media e imprimir os tchans.
+# ESTRUTURA REGISTRO DE ESTUDANTE
+# tipo Notas = Registro
+#        Real Nota_1;
+#        Real Nota_2;
+#        Real Nota_3;
+#    Fim-Registro;
+# tipo Estudante = Registro
+#        int  Codigo;
+#        str  Nome;
+#        int  Notas;
+#        flt  Media;
+#    Fim-Registro;
+# Lista Estudante Turma[];
 
 
 from typing import NamedTuple
@@ -26,11 +26,11 @@ class Notas(NamedTuple):
 # end_Notas_class
 
 
-class Estudante(NamedTuple):
+class EstudanteInfo(NamedTuple):
     nome: str
     notas: Notas
     codigo: int
-# end_Estudante_class
+# end_EstudanteInfo_class
 
 
 def input_data():
@@ -39,10 +39,11 @@ def input_data():
     nota_1_in = int(input("Insira a primeira nota: "))
     nota_2_in = int(input("Insira a segunda nota: "))
     nota_3_in = int(input("Insira a terceira nota: "))
-    recordestudante = Estudante(nome=nome_in, codigo=codigo_in)
+    recordestudante = EstudanteInfo(nome=nome_in, codigo=codigo_in)
     recordnotas = Notas(notas=Notas(nota1=nota_1_in, nota2=nota_2_in, nota3=nota_3_in))
     return recordestudante and recordnotas
 # end input_data
+
 
 def media_calculator():
     Estudante_list = (Notas.nota1, Notas.nota2, Notas.nota3)/3
