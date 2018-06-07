@@ -28,8 +28,8 @@ class Notas(NamedTuple):
 
 class EstudanteInfo(NamedTuple):
     nome: str
-    notas: Notas
     codigo: int
+    notas = Notas
 # end_EstudanteInfo_class
 
 
@@ -40,13 +40,13 @@ def input_data():
     nota_2_in = int(input("Insira a segunda nota: "))
     nota_3_in = int(input("Insira a terceira nota: "))
     recordestudante = EstudanteInfo(nome=nome_in, codigo=codigo_in)
-    recordnotas = Notas(notas=Notas(nota1=nota_1_in, nota2=nota_2_in, nota3=nota_3_in))
+    recordnotas = Notas(nota1=nota_1_in, nota2=nota_2_in, nota3=nota_3_in)
     return recordestudante and recordnotas
 # end input_data
 
 
 def media_calculator():
-    Estudante_list = (Notas.nota1, Notas.nota2, Notas.nota3)/3
+    (Notas.nota1, Notas.nota2, Notas.nota3)/3
 
 # end media_calculator
 
