@@ -64,16 +64,17 @@ exit = 's'
 while exit != 'n' and exit != 'N':
     Estud_List.append(in_data())
     exit = str(input("Continuar (s ou n)?")) #Injetando os valores do in_data na lista nova
-def print_data(Codigo,Nome,Media):
+def print_data(Codigo,Nome,Media,nota1,nota2,nota3):
   for i in range(len(Estud_List)):
     rec=Estud_List[i]
     print("Código: ",Codigo)
     print("Nome: ",Nome)
     print("Média: ",Media)
+    print("Notas: ","\n", nota1, "\n", nota2, "\n", nota3)
     if Media >= 7:
       print("Status: Aprovado")
     else:
       print("Status: Reprovado")
       print("\n")
 #end print_data
-print_data(rec.Cod,rec.Nome,rec.Med)
+print_data(rec.Cod,rec.Nome,rec.Med,rec.N1,rec.N2,rec.N3)
