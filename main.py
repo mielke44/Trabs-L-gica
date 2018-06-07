@@ -64,4 +64,15 @@ exit = 's'
 while exit != 'n' and exit != 'N':
     Estud_List.append(in_data())
     exit = str(input("Continuar (s ou n)?"))
-print(Estud_List)
+def print_data():
+  for i in range(len(Estud_List)):
+    rec=Estud_List[i]
+    print("Código: ",rec.Cod)
+    print("Nome: ",rec.Nome)
+    print("Média: ",rec.Med)
+    if rec.Med >= 7:
+      print("Status: Aprovado")
+    else:
+      print("Status: Reprovado")
+      print("\n")
+print_data()
