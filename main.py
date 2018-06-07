@@ -34,9 +34,9 @@ tipo Estudante = Registro
 from typing import NamedTuple
 
 class Notas(NamedTuple):
-    N1 : int
-    N2 : int
-    N3 : int
+    N1 : float
+    N2 : float
+    N3 : float
 #end class
 class Estud(NamedTuple):
     Cod : int
@@ -45,11 +45,11 @@ class Estud(NamedTuple):
     Med : float
 #end class
 def in_data():
-    Cod_in = int(input("Entre com o código do aluno"))
-    Nome_in = str(input("Entre com o nome do aluno"))
-    N1_in = int(input("Entre com a nota 1"))
-    N2_in = int(input("Entre com a nota 2"))
-    N3_in = int(input("Entre com a nota 3"))
+    Cod_in = int(input("Entre com o código do aluno: "))
+    Nome_in = str(input("Entre com o nome do aluno: "))
+    N1_in = float(input("Entre com a nota 1: "))
+    N2_in = float(input("Entre com a nota 2: "))
+    N3_in = float(input("Entre com a nota 3: "))
     rec = Estud(Cod=Cod_in, Nome=Nome_in, Aval=Notas(N1=N1_in, N2=N2_in, N3=N3_in), Med = med_Calc(N1_in,N2_in,N3_in))
     return rec
 #end in_data
