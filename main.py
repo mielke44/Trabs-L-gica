@@ -1,80 +1,103 @@
-'''
-1) Ler um conjunto aleatório de registros do teclado;
-
-2) Em seguida, calcule a média de cada um ;
-
-3) Por fim, imprimir a lista de estudantes com as três notas, média e se aprovado ou não (aprovado com média igual ou superior a 7.00).
-
-OBS: Use Funções para cada ítem
-
-Lembre-se use def para:
-
-1) Ler os registros;
-
-2) Calcular a média;
-
-3) imprimir a lista de estudantes, média e se aprovado ou não.
-
-
-ESTRUTURA REGISTRO DE ESTUDANTE
-
-tipo Notas = Registro
-                           Real Nota_1;
-                           Real Nota_2;
-                           Real Nota_3;
-                      Fim-Registro;
-tipo Estudante = Registro
-                                 inteiro      Codigo
-                                Caractere  Nome;
-                                Avaliacao  Notas;
-                                Real            Media;
-                            Fim-Registro ;
- Lista Estudante Turma[ ] ;    
-'''
 from typing import NamedTuple
+import datetime
 
-class Notas(NamedTuple):
-    N1 : float
-    N2 : float
-    N3 : float
-#end class Notas
-class Estud(NamedTuple):
-    Cod : int
-    Nome : str
-    Aval : Notas
-    Med : float
-#end class Estud
-def in_data():
-    Cod_in = int(input("Entre com o código do aluno: "))
-    Nome_in = str(input("Entre com o nome do aluno: "))
-    N1_in = float(input("Entre com a nota 1: "))
-    N2_in = float(input("Entre com a nota 2: "))
-    N3_in = float(input("Entre com a nota 3: "))
-    rec = Estud(Cod=Cod_in, Nome=Nome_in, Aval=Notas(N1=N1_in, N2=N2_in, N3=N3_in), Med = med_Calc(N1_in,N2_in,N3_in))
-    return rec
-#end in_data
+mylist = []
+today = datetime.date.today()
+mylist.append(today)
+print ("Dia de hoje: ",mylist[0])
 
-def med_Calc(nota1,nota2,nota3):
-  Med = (nota1+nota2+nota3)/3
-  return Med
-#end med_Calc
+class data(NamedTuple):
+  dia:int
 
-Estud_List= []
-exit = 's'
-while exit != 'n' and exit != 'N':
-    Estud_List.append(in_data())
-    exit = str(input("Continuar (s ou n)?")) #Injetando os valores do in_data na lista nova
-def print_data(Codigo,Nome,Media,nota1,nota2,nota3):
-  for i in range(len(Estud_List)):
-    rec=Estud_List[i]
-    print("Código: ",Codigo)
-    print("Nome: ",Nome)
-    print("Média: ",Media)
-    print("Notas: ","\n", nota1, "\n", nota2, "\n", nota3)
-    if Media >= 7:
-      print("Status: Aprovado")
-    else:
-      print("Status: Reprovado")
-      print("\n")
+class luz(NamedTuple):
+  custo_Presente:float
+  custo_Passado:float
+  perc_Dif:float
+  data_Pag:data
+
+#end Luz class
+
+class agua(NamedTuple):
+  custo_Presente:float
+  custo_Passado:float
+  perc_Dif:float
+  data_Pag:data
+
+#end Agua class
+
+class internet(NamedTuple):
+  custo_Presente:float
+  custo_Passado:float
+  perc_Dif:float
+  data_Pag:data
+
+#end Internet class
+
+class mercado(NamedTuple):
+  custo_Presente:float
+  custo_Passado:float
+  perc_Dif:float
+  data_Pag:data
+
+#end Mercado class
+
+class lazer(NamedTuple):
+  custo_Presente:float
+  custo_Passado:float
+  perc_Dif:float
+
+#end lazer class
+
+class tot_Gast(NamedTuple):
+  tot_atual:float
+  tot_passado:float
+  perc_Dif:float
+
+class Finan(NamedTuple):
+  salario_Liq:float
+  salario_Desc:float
+  luz_Conta:luz
+  agua_Conta:agua
+  internet_Conta:internet
+  mercado_Conta:mercado
+  lazer_Conta:lazer
+  cap_Sobra:float
+  tot_Gasto:tot_Gast
+
+#end Financeiro class
+
+def in_dado():
+  sal_liq_in=float(input("Salário deste mês: "))
+  sal_desc_in=float(input("Desconto do salário: "))
+  luz_pres_in=float(input("Custo de luz atual: "))
+  agua_pres_in=float(input("Custo de água atual: "))
+  internet_pres_in=float(input("Custo de internet atual: "))
+  mercado_pres_in=float(input("Custo total do mercado atual: "))
+  lazer_pres_in=float(input("Custo total de lazer atual: "))
+  in_datas_pgto(luz)
+  in_datas_pgto(agua)
+  in_datas_pgto(internet)
+  in_datas_pgto(mercado)
+  rec=Finan(salario_Liq=sal_liq_in, salario_Desc=sal_desc_in, luz_Conta=luz(custo_Presente=luz_pres_in, data_Pag=in_datas_pgto(luz)), agua_Conta=agua(custo_Presente=agua_pres_in, data_Pag=in_datas_pgto(agua)),internet_Conta=internet(custo_Presente=internet_pres_in, data_Pag=in_datas_pgto(internet)),mercado_Conta=mercado(custo_Presente=mercado_pres_in, data_Pag=in_datas_pgto(mercado)),lazer_Conta=lazer(custo_Presente=lazer_pres_in))
+  return rec
+#end in_dado
+
+def in_datas_pgto(serviço):
+  print("Datas de pagamentos para ",serviço)
+  in_dia = int(input("Dia do pagamento (número): "))
+  serviço.data_Pag=data(dia=in_dia)
+  return in_dia
+
+#end in_datas_pgto
+
+in_dado()
+
+#rodando as datas de pagamento para os serviços
+dados_Lista = [in_dado]
+def print_data(serviço,var):
+  print("Custo atual: ",dados_Lista.serviço_Conta.custo_Presente)
+  if var == 2:
+    print("Data de pagamento: ",dados_Lista.serviço_Conta.data_Pag)
 #end print_data
-print_data(rec.Cod,rec.Nome,rec.Med,rec.N1,rec.N2,rec.N3)
+print("Salário Liquido: ",dados_Lista.salario_Liq)
+print("Salário com descontos: ",dados_Lista.salario_Desc)
