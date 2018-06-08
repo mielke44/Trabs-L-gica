@@ -1,3 +1,8 @@
+"""DISCLAIMER: Este app é um projeto pessoal do Wilson Mielke, qualquer uso profissional não está autorizado, com excessão de casos excepcionais com aprovação do mesmo.
+App feito para organizar finanças pessoais
+versão 0.1.21
+(versão 0 = beta, .1 = build, .21 = teste com 1 bug)
+"""
 from typing import NamedTuple
 import datetime
 import pickle
@@ -106,7 +111,7 @@ def in_dado():
 	internet_pres_in = float(input("Custo de internet atual: R$"))
 	mercado_pres_in = float(input("Custo total do mercado atual: R$"))
 	lazer_pres_in = float(input("Custo total de lazer atual: R$"))
-  tot_Gast.tot_atual = (luz_pres_in + agua_pres_in + internet_pres_in + mercado_pres_in + lazer_pres_in)
+  tot_Gast.tot_atual = (luz_pres_in + agua_pres_in + internet_pres_in +mercado_pres_in + lazer_pres_in)
   in_datas_pgto(luz)
 	in_datas_pgto(agua)
 	in_datas_pgto(internet)
