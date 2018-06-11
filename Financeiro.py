@@ -1,12 +1,16 @@
 """DISCLAIMER: Este app é um projeto pessoal do Wilson Mielke, qualquer uso profissional não está autorizado, com excessão de casos excepcionais com aprovação do mesmo.
 App feito para organizar finanças pessoais
-versão 0.1.23
-(versão 0 = beta, .1 = build, .21 = teste com 1 bug)
+versão 0.11.20
+(versão 0 = beta, .1 = build, .21 = -> teste com 1 bug)
 """
+#implementar gui com tkinter
+#definir como fazer os dados passados durarem 1 ano
+#idealizar metodo de fragmentação dos topicos principais
+
 from typing import NamedTuple
 import datetime
 import pickle
-
+import tkinter
 mylist = []
 today = datetime.date.today()
 mylist.append(today)
