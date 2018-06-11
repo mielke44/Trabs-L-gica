@@ -10,7 +10,7 @@ import pickle
 mylist = []
 today = datetime.date.today()
 mylist.append(today)
-print("Dia de hoje: ", mylist[0])
+print("Dia de hoje:", mylist[0])
 
 
 class data(NamedTuple):
@@ -88,8 +88,16 @@ class Finan(NamedTuple):
 try:
 	with open('past_data.pik', 'rb') as f:
 		dados_Lista2 = pickle.load(f)
+  with open('last_date.pik', 'rb') as f:
+    last_date = pickle.load(f)
 	print("sucesso")
 	print(dados_Lista2)
+	luz.custo_Passado = dados_Lista2[0]
+	agua.custo_Passado = dados_Lista2[1]
+	internet.custo_Passado = dados_Lista2[2]
+	mercado.custo_Passado = dados_Lista2[3]
+	lazer.custo_Passado = dados_Lista2[4]
+	tot_Gast.tot_passado = dados_Lista2[5]
 except FileNotFoundError:
 	luz.perc_Dif = 0
 	luz.custo_Passado = 0
@@ -104,21 +112,31 @@ except FileNotFoundError:
 	tot_Gast.tot_passado = 0
 	tot_Gast.perc_Dif = 0
 
+def calc_Perc(serviço,serviço2):
+  x = 100 * (serviço2//(serviço2 + serviço.custo_Passado))
+  return x
+
+#end calc_Perc
 
 def in_dado():
-	sal_liq_in = float(input("Salário deste mês: R$"))
-	sal_desc_in = float(input("Desconto do salário: R$"))
-	luz_pres_in = float(input("Custo de luz atual: R$"))
-	agua_pres_in = float(input("Custo de água atual: R$"))
-	internet_pres_in = float(input("Custo de internet atual: R$"))
-	mercado_pres_in = float(input("Custo total do mercado atual: R$"))
-	lazer_pres_in = float(input("Custo total de lazer atual: R$"))
-	tot_atual_in = (luz_pres_in + agua_pres_in + internet_pres_in +
-	                mercado_pres_in + lazer_pres_in)
-	cap_sobra_in = sal_liq_in - (
-	    sal_desc_in + luz_pres_in + agua_pres_in + internet_pres_in +
-	    mercado_pres_in + lazer_pres_in)
-	rec = Finan(
+  sal_liq_in = float(input("Salário deste mês: R$"))
+  sal_desc_in = float(input("Desconto do salário: R$"))
+  luz_pres_in = float(input("Custo de luz atual: R$"))
+  agua_pres_in = float(input("Custo de água atual: R$"))
+  internet_pres_in = float(input("Custo de internet atual: R$"))
+  mercado_pres_in = float(input("Custo total do mercado atual: R$"))
+  lazer_pres_in = float(input("Custo total de lazer atual: R$"))
+
+  tot_atual_in = (luz_pres_in + agua_pres_in + internet_pres_in + mercado_pres_in + lazer_pres_in)
+  cap_sobra_in = sal_liq_in - (sal_desc_in + luz_pres_in + agua_pres_in + internet_pres_in +mercado_pres_in + lazer_pres_in)
+  tot_Gast.perc_Dif = 100 * tot_atual_in // (tot_atual_in + tot_Gast.tot_passado) 
+
+  luz.perc_Dif=calc_Perc(luz,luz_pres_in)
+  agua.perc_Dif=calc_Perc(agua,agua_pres_in)
+  internet.perc_Dif=calc_Perc(internet,internet_pres_in)
+  mercado.perc_Dif=calc_Perc(mercado,mercado_pres_in)
+  lazer.perc_Dif=calc_Perc(lazer,lazer_pres_in)
+  rec = Finan(
 	    salario_Liq=sal_liq_in,
 	    salario_Desc=sal_desc_in,
 	    luz_Conta=luz(
@@ -150,14 +168,14 @@ def in_dado():
 	        tot_atual=tot_atual_in,
 	        tot_passado=tot_Gast.tot_passado,
 	        perc_Dif=tot_Gast.perc_Dif))
-	return rec
+  return rec
 
 
 #end in_dado
 
 
 def in_datas_pgto(serviço):
-	print("Datas de pagamentos para ", serviço)
+	print("Data de pagamentos para",serviço.__name__,":")
 	in_dia = int(input("Dia do pagamento (número): "))
 	serviço.data_Pag = data(in_dia)
 	return in_dia
@@ -168,23 +186,39 @@ def in_datas_pgto(serviço):
 #rodando as datas de pagamento para os serviços
 dados_Lista = (in_dado())
 
+def change_List(serviço,x):
+  serviço.custo_Passado = dados_Lista[x][0]
+  lista_Nova.append(serviço.custo_Passado)
+#end change_List
 
-def print_data(serviço, var):
-	print("Custo atual: ", serviço.custo_Presente)
-	if var == 2:
-		print("Data de pagamento: ", serviço.data_Pag)
+def print_data(serviço, var,x):
+  print(serviço.__name__,":")
+  print("Custo atual: R$", dados_Lista[x][0])
+  if var == 2:
+    print("Data de pagamento: dia ", dados_Lista[x][3],"\n")
 
 
 #end print_data
 print("------------------------------------ \n")
-print_data(luz, 2)
-print_data(agua, 2)
-print_data(internet, 2)
-print_data(mercado, 2)
-print_data(lazer, 1)
+print_data(luz, 2,2)
+print_data(agua, 2,3)
+print_data(internet, 2,4)
+print_data(mercado, 2,5)
+print_data(lazer, 1,6)
 print("Salário Liquido: R$", dados_Lista.salario_Liq)
 print("Desconto do salário: R$", dados_Lista.salario_Desc)
 print("Efetivo não utilizado: R$", dados_Lista.cap_Sobra)
+print("Percentual de diferença de custo com o mês anterior:", dados_Lista.tot_Gasto[2], "%")
+lista_Nova=[]
+total_passado=dados_Lista[8][0]
+change_List(luz,2)
+change_List(agua,3)
+change_List(internet,4)
+change_List(mercado,5)
+change_List(lazer,6)
+lista_Nova.append(total_passado)
+tuple(lista_Nova)
 with open('past_data.pik', 'wb') as f:
-#fazer um define para transformar as variáveis atuais nas passadas! file vinda do pickle não está com os nomes certos!
-	pickle.dump(dados_Lista, f, -1)
+  pickle.dump(lista_Nova, f, -1)
+with open('last_date.pik', 'wb') as f:
+  pickle.dump(mylist,f,-1)
